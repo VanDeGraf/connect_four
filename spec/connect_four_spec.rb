@@ -5,18 +5,30 @@ describe ConnectFour do
 
   describe "#initialize" do
     # Don't need testing because only init variables
+    it "defined" do
+      expect(game).to respond_to(:initialize)
+    end
   end
 
   describe "#print_game_status" do
     # Don't need testing because puts only
+    it "defined" do
+      expect(game).to respond_to(:print_game_status)
+    end
   end
 
   describe "#print_game_result" do
     # Don't need testing because puts only
+    it "defined" do
+      expect(game).to respond_to(:print_game_result)
+    end
   end
 
   describe "#play_game" do
     # Don't need testing because contains only testing methods
+    it "defined" do
+      expect(game).to respond_to(:play_game)
+    end
   end
 
   describe "#player_name_input" do
