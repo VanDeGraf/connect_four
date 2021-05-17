@@ -4,10 +4,7 @@ describe ConnectFour do
   subject(:game) { described_class.new }
 
   describe "#initialize" do
-    # Don't need testing because only init variables
-    it "defined" do
-      expect(game).to respond_to(:initialize)
-    end
+    # Don't need testing because only init variables    
   end
 
   describe "#print_game_status" do
