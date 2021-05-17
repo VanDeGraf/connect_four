@@ -9,11 +9,11 @@ class ConnectFour
   def print_game_status
     player_marks = ["O", "X"]
     print " "
-    (0).upto(@board[0].length) { |i| print i }
+    (0).upto(@board[0].length-1) { |i| print i }
     print "\n"
-    (0).upto(@board.length) do |i|
-      row = i + @board[i].map { |player| j.nil? ? "+" : player_marks[player] }.join("")
-      row += "\t\t#{@player_name[i]} mark: #{@player_marks[i]}" if @player_name[i]
+    (0).upto(@board.length-1) do |i|
+      row = i.to_s + @board[i].map { |player| player.nil? ? "+" : player_marks[player] }.join("")
+      row += "\t\t#{@player_names[i]} mark: #{player_marks[i]}" if @player_names[i]
       puts row
     end
   end
@@ -22,7 +22,7 @@ class ConnectFour
     if @winner.nil?
       puts "No winners!"
     else
-      puts "Player #{@player_name[@winner]} Win the game!"
+      puts "Player #{@player_names[@winner]} Win the game!"
     end
   end
 
@@ -73,7 +73,7 @@ class ConnectFour
   end
 
   def player_turn
-    puts "Player #{@player_name[@current_player]} turn. Type x,y coordinate on board: "
+    puts "Player #{@player_names[@current_player]} turn. Type x,y coordinate on board: "
     x, y = player_turn_input
     until @board[y][x].nil?
       puts "Coordinate is already occupied! Type another: "
@@ -93,14 +93,14 @@ class ConnectFour
       right_left_diagonal: 0,
     }
     axis[:vertical] += count_line_elements(x, y) { |xx, yy| [xx, yy + 1] }
-    axis[:vertical] += count_line_elements(x, y) { |x, y| [x, y - 1] }
-    axis[:horizontal] += count_line_elements(x, y) { |x, y| [x + 1, y] }
-    axis[:horizontal] += count_line_elements(x, y) { |x, y| [x - 1, y] }
-    axis[:left_right_diagonal] += count_line_elements(x, y) { |x, y| [x + 1, y + 1] }
-    axis[:left_right_diagonal] += count_line_elements(x, y) { |x, y| [x - 1, y - 1] }
-    axis[:right_left_diagonal] += count_line_elements(x, y) { |x, y| [x + 1, y - 1] }
-    axis[:right_left_diagonal] += count_line_elements(x, y) { |x, y| [x - 1, y + 1] }
-    axis.max
+    axis[:vertical] += count_line_elements(x, y) { |xx, yy| [xx, yy - 1] } - 1
+    axis[:horizontal] += count_line_elements(x, y) { |xx, yy| [xx + 1, yy] }
+    axis[:horizontal] += count_line_elements(x, y) { |xx, yy| [xx - 1, yy] } - 1
+    axis[:left_right_diagonal] += count_line_elements(x, y) { |xx, yy| [xx + 1, yy + 1] }
+    axis[:left_right_diagonal] += count_line_elements(x, y) { |xx, yy| [xx - 1, yy - 1] } - 1
+    axis[:right_left_diagonal] += count_line_elements(x, y) { |xx, yy| [xx + 1, yy - 1] }
+    axis[:right_left_diagonal] += count_line_elements(x, y) { |xx, yy| [xx - 1, yy + 1] } - 1
+    axis.values.max
   end
 
   def count_line_elements(x, y)
@@ -110,8 +110,39 @@ class ConnectFour
     while point_player == target_player
       accumulator += 1
       x, y = yield(x, y)
-      target_player = @board.dig(y, x)
+      if x < 0 || y < 0
+        target_player = nil
+      else
+        target_player = @board.dig(y, x)
+      end
     end
     accumulator
   end
+
+  def game_end?
+    win_line_length = 4
+    has_empty_cell = false
+    @board.each_with_index do |row, y|
+      row.each_with_index do |player, x|
+        has_empty_cell |= @board[y][x].nil?
+        max_line_length = count_elements_in_row_from_point(x, y)
+        if max_line_length >= win_line_length
+          @winner = player
+          return true
+        end
+      end
+    end
+    has_empty_cell ? false : true
+  end
+
+  def play_game
+    introdution
+    until game_end?
+      player_turn
+      print_game_status
+    end
+    print_game_result
+  end
 end
+
+ConnectFour.new.play_game

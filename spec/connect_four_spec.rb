@@ -4,26 +4,26 @@ describe ConnectFour do
   subject(:game) { described_class.new }
 
   describe "#initialize" do
-    # Don't need testing because only inxit variables
+    # Don't need testing because only init variables
   end
 
   describe "#print_game_status" do
     # Don't need testing because puts only
-    xit "defined" do
+    it "defined" do
       expect(game).to respond_to(:print_game_status)
     end
   end
 
   describe "#print_game_result" do
     # Don't need testing because puts only
-    xit "defined" do
+    it "defined" do
       expect(game).to respond_to(:print_game_result)
     end
   end
 
   describe "#play_game" do
     # Don't need testing because contains only testing methods
-    xit "defined" do
+    it "defined" do
       expect(game).to respond_to(:play_game)
     end
   end
@@ -35,17 +35,17 @@ describe ConnectFour do
         allow(game).to receive(:puts)
       end
 
-      xit "puts there is input is wrong" do
+      it "puts there is input is wrong" do
         expect(game).to receive(:puts).at_least(:once)
         game.player_name_input
       end
 
-      xit "gets twice (wrong and not) input" do
+      it "gets twice (wrong and not) input" do
         expect(game).to receive(:gets).twice
         game.player_name_input
       end
 
-      xit "return valid" do
+      it "return valid" do
         expect(game.player_name_input).to eq("Bob")
       end
     end
@@ -58,17 +58,17 @@ describe ConnectFour do
         allow(game).to receive(:puts)
       end
 
-      xit "puts there is wrong input once" do
+      it "puts there is wrong input once" do
         expect(game).to receive(:puts).at_least(:once)
         game.board_size_input
       end
 
-      xit "gets on wrong and valid inputs" do
+      it "gets on wrong and valid inputs" do
         expect(game).to receive(:gets).twice
         game.board_size_input
       end
 
-      xit "return valid input" do
+      it "return valid input" do
         expect(game.board_size_input).to be 7
       end
     end
@@ -79,7 +79,7 @@ describe ConnectFour do
         allow(game).to receive(:puts)
       end
 
-      xit "puts there is wrong input" do
+      it "puts there is wrong input" do
         expect(game).to receive(:puts).at_least(:once)
         game.board_size_input
       end
@@ -94,21 +94,21 @@ describe ConnectFour do
       allow(game).to receive(:puts)
     end
 
-    xit "calls #player_name_input twice" do
+    it "calls #player_name_input twice" do
       expect(game).to receive(:player_name_input).twice
       game.introdution
     end
 
-    xit "set player names" do
+    it "set player names" do
       expect { game.introdution }.to change { game.instance_variable_get(:@player_names) }.to(["Bob", "Anna"])
     end
 
-    xit "calls #board_size_input twice" do
+    it "calls #board_size_input twice" do
       expect(game).to receive(:board_size_input).twice
       game.introdution
     end
 
-    xit "creates board array with inputed length" do
+    it "creates board array with inputed length" do
       expect { game.introdution }.to change {
                                        game.instance_variable_get(:@board).length
                                      }.to(6).and change {
@@ -116,7 +116,7 @@ describe ConnectFour do
                                      }.to(7)
     end
 
-    xit "calls #print_game_status once" do
+    it "calls #print_game_status once" do
       expect(game).to receive(:print_game_status).once
       game.introdution
     end
@@ -131,7 +131,7 @@ describe ConnectFour do
         allow(game).to receive(:gets).and_return("\n", "0 0\n")
       end
 
-      xit "puts wrong input once" do
+      it "puts wrong input once" do
         expect(game).to receive(:puts).once
         game.player_turn_input
       end
@@ -142,7 +142,7 @@ describe ConnectFour do
         allow(game).to receive(:gets).and_return("1\n", "0 0\n")
       end
 
-      xit "puts wrong input" do
+      it "puts wrong input" do
         expect(game).to receive(:puts).once
         game.player_turn_input
       end
@@ -152,7 +152,7 @@ describe ConnectFour do
         allow(game).to receive(:gets).and_return("1 1 2\n", "0 0\n")
       end
 
-      xit "puts wrong input" do
+      it "puts wrong input" do
         expect(game).to receive(:puts).once
         game.player_turn_input
       end
@@ -162,7 +162,7 @@ describe ConnectFour do
         allow(game).to receive(:gets).and_return("a5 b10\n", "0 0\n")
       end
 
-      xit "puts wrong input" do
+      it "puts wrong input" do
         expect(game).to receive(:puts).once
         game.player_turn_input
       end
@@ -172,7 +172,7 @@ describe ConnectFour do
         allow(game).to receive(:gets).and_return("5 b10\n", "0 0\n")
       end
 
-      xit "puts wrong input" do
+      it "puts wrong input" do
         expect(game).to receive(:puts).once
         game.player_turn_input
       end
@@ -182,7 +182,7 @@ describe ConnectFour do
         allow(game).to receive(:gets).and_return("a5 10\n", "0 0\n")
       end
 
-      xit "puts wrong input" do
+      it "puts wrong input" do
         expect(game).to receive(:puts).once
         game.player_turn_input
       end
@@ -192,7 +192,7 @@ describe ConnectFour do
         allow(game).to receive(:gets).and_return("10 5\n", "0 0\n")
       end
 
-      xit "puts coordinate out of board" do
+      it "puts coordinate out of board" do
         expect(game).to receive(:puts).once
         game.player_turn_input
       end
@@ -202,7 +202,7 @@ describe ConnectFour do
         allow(game).to receive(:gets).and_return("5 10\n", "0 0\n")
       end
 
-      xit "puts coordinate out of board" do
+      it "puts coordinate out of board" do
         expect(game).to receive(:puts).once
         game.player_turn_input
       end
@@ -212,7 +212,7 @@ describe ConnectFour do
         allow(game).to receive(:gets).and_return("15 10\n", "0 0\n")
       end
 
-      xit "puts coordinate out of board" do
+      it "puts coordinate out of board" do
         expect(game).to receive(:puts).once
         game.player_turn_input
       end
@@ -222,7 +222,7 @@ describe ConnectFour do
         allow(game).to receive(:gets).and_return("0 0\n")
       end
 
-      xit "return array of x and y coordinate" do
+      it "return array of x and y coordinate" do
         expect(game.player_turn_input).to eql([0, 0])
       end
     end
@@ -241,23 +241,23 @@ describe ConnectFour do
         game.instance_variable_set(:@current_player, current_player)
       end
 
-      xit "puts coordinate is already occupied" do
+      it "puts coordinate is already occupied" do
         expect(game).to receive(:puts).at_least(:twice)
         game.player_turn
       end
 
-      xit "call player_turn_input again" do
+      it "call player_turn_input again" do
         expect(game).to receive(:player_turn_input).twice
         game.player_turn
       end
 
-      xit "update board cell to current player" do
+      it "update board cell to current player" do
         expect { game.player_turn }.to change {
           game.instance_variable_get(:@board)[1][1]
         }.from(nil).to(current_player)
       end
 
-      xit "change current player" do
+      it "change current player" do
         expect { game.player_turn }.to change {
           game.instance_variable_get(:@current_player)
         }.from(current_player).to(1)
@@ -276,7 +276,7 @@ describe ConnectFour do
         ])
       end
       it "return 0" do
-        expect(game.count_elements_in_row_from_point(point)).to be_zero
+        expect(game.count_elements_in_row_from_point(point[0], point[1])).to be_zero
       end
     end
     context "when board is full, besides center, point center" do
@@ -287,8 +287,8 @@ describe ConnectFour do
           [0, 0, 0],
         ])
       end
-      xit "return 0" do
-        expect(game.count_elements_in_row_from_point(point)).to be 0
+      it "return 0" do
+        expect(game.count_elements_in_row_from_point(point[0], point[1])).to be 0
       end
     end
     context "when board is empty, besides center, point center" do
@@ -299,8 +299,8 @@ describe ConnectFour do
           [nil, nil, nil],
         ])
       end
-      xit "return 1" do
-        expect(game.count_elements_in_row_from_point(point)).to be 1
+      it "return 1" do
+        expect(game.count_elements_in_row_from_point(point[0], point[1])).to be 1
       end
     end
     context "when board has horizontal line across center with length 3, point center" do
@@ -311,8 +311,8 @@ describe ConnectFour do
           [nil, nil, nil],
         ])
       end
-      xit "return 3" do
-        expect(game.count_elements_in_row_from_point(point)).to be 3
+      it "return 3" do
+        expect(game.count_elements_in_row_from_point(point[0], point[1])).to be 3
       end
     end
     context "when board has vertical line across center with length 3, point center" do
@@ -323,8 +323,8 @@ describe ConnectFour do
           [nil, 0, nil],
         ])
       end
-      xit "return 3" do
-        expect(game.count_elements_in_row_from_point(point)).to be 3
+      it "return 3" do
+        expect(game.count_elements_in_row_from_point(point[0], point[1])).to be 3
       end
     end
     context "when board has left-right diagonal line across center with length 3, point center" do
@@ -335,8 +335,8 @@ describe ConnectFour do
           [nil, nil, 0],
         ])
       end
-      xit "return 3" do
-        expect(game.count_elements_in_row_from_point(point)).to be 3
+      it "return 3" do
+        expect(game.count_elements_in_row_from_point(point[0], point[1])).to be 3
       end
     end
     context "when board has right-left diagonal line across center with length 3, point center" do
@@ -347,8 +347,8 @@ describe ConnectFour do
           [0, nil, nil],
         ])
       end
-      xit "return 3" do
-        expect(game.count_elements_in_row_from_point(point)).to be 3
+      it "return 3" do
+        expect(game.count_elements_in_row_from_point(point[0], point[1])).to be 3
       end
     end
     context "when board full by player 1 besides center by another player, point center" do
@@ -359,8 +359,8 @@ describe ConnectFour do
           [0, 0, 0],
         ])
       end
-      xit "return 1" do
-        expect(game.count_elements_in_row_from_point(point)).to be 1
+      it "return 1" do
+        expect(game.count_elements_in_row_from_point(point[0], point[1])).to be 1
       end
     end
     context "when board has horizontal line across center with length 5, point center" do
@@ -371,8 +371,8 @@ describe ConnectFour do
           [0, 0, 0, 0, 0],
         ])
       end
-      xit "return 5" do
-        expect(game.count_elements_in_row_from_point(point)).to be 5
+      it "return 5" do
+        expect(game.count_elements_in_row_from_point(point[0], point[1])).to be 5
       end
     end
     context "when board has 2 lines across center with length 5 and 3 respectively, point center" do
@@ -383,68 +383,68 @@ describe ConnectFour do
           [0, 0, 1, 0, 0],
         ])
       end
-      xit "return max is 5" do
-        expect(game.count_elements_in_row_from_point(point)).to be 5
+      it "return max is 5" do
+        expect(game.count_elements_in_row_from_point(point[0], point[1])).to be 5
       end
     end
   end
 
   describe "#game_end?" do
     context "when board has win line length from first point" do
+      let(:winner) { 0 }
       before do
-        let(:winner) { 0 }
         allow(game).to receive(:count_elements_in_row_from_point).with(0, 0).and_return(4)
-        game.instace_variable_set(:@board, [[winner]])
+        game.instance_variable_set(:@board, [[winner]])
       end
 
-      xit "calls #count_elements_in_row_from_point once" do
+      it "calls #count_elements_in_row_from_point once" do
         expect(game).to receive(:count_elements_in_row_from_point).once
         game.game_end?
       end
 
-      xit "return true" do
+      it "return true" do
         expect(game.game_end?).to be true
       end
 
-      xit "set winner" do
+      it "set winner" do
         expect { game.game_end? }.to change { game.instance_variable_get(:@winner) }.from(nil).to(winner)
       end
     end
     context "when board is empty 3x3" do
       before do
         allow(game).to receive(:count_elements_in_row_from_point).and_return(0)
-        game.instace_variable_set(:@board, Array.new(3) { Array.new(3, nil) })
+        game.instance_variable_set(:@board, Array.new(3) { Array.new(3, nil) })
       end
 
-      xit "calls 9 #count_elements_in_row_from_point" do
+      it "calls 9 #count_elements_in_row_from_point" do
         expect(game).to receive(:count_elements_in_row_from_point).exactly(9).times
         game.game_end?
       end
 
-      xit "return false" do
+      it "return false" do
         expect(game.game_end?).to be false
       end
 
-      xit "don't change winner" do
+      it "don't change winner" do
         expect { game.game_end? }.to_not change { game.instance_variable_get(:@winner) }
       end
     end
     context "when board is full 3x3 (without win line)" do
       before do
         allow(game).to receive(:count_elements_in_row_from_point).and_return(0)
-        game.instace_variable_set(:@board, Array.new(3) { Array.new(3, 0) })
+        game.instance_variable_set(:@board, Array.new(3) { Array.new(3, 0) })
       end
 
-      xit "calls 9 #count_elements_in_row_from_point" do
+      it "calls 9 #count_elements_in_row_from_point" do
         expect(game).to receive(:count_elements_in_row_from_point).exactly(9).times
         game.game_end?
       end
 
-      xit "return true" do
+      it "return true" do
         expect(game.game_end?).to be true
       end
 
-      xit "don't change winner" do
+      it "don't change winner" do
         expect { game.game_end? }.to_not change { game.instance_variable_get(:@winner) }
       end
     end
