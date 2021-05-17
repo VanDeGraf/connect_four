@@ -9,9 +9,9 @@ class ConnectFour
   def print_game_status
     player_marks = ["O", "X"]
     print " "
-    (0).upto(@board[0].length-1) { |i| print i }
+    (0).upto(@board[0].length - 1) { |i| print i }
     print "\n"
-    (0).upto(@board.length-1) do |i|
+    (0).upto(@board.length - 1) do |i|
       row = i.to_s + @board[i].map { |player| player.nil? ? "+" : player_marks[player] }.join("")
       row += "\t\t#{@player_names[i]} mark: #{player_marks[i]}" if @player_names[i]
       puts row
@@ -103,22 +103,6 @@ class ConnectFour
     axis.values.max
   end
 
-  def count_line_elements(x, y)
-    point_player = @board[y][x]
-    target_player = point_player
-    accumulator = 0
-    while point_player == target_player
-      accumulator += 1
-      x, y = yield(x, y)
-      if x < 0 || y < 0
-        target_player = nil
-      else
-        target_player = @board.dig(y, x)
-      end
-    end
-    accumulator
-  end
-
   def game_end?
     win_line_length = 4
     has_empty_cell = false
@@ -143,6 +127,24 @@ class ConnectFour
     end
     print_game_result
   end
+
+  private
+
+  def count_line_elements(x, y)
+    point_player = @board[y][x]
+    target_player = point_player
+    accumulator = 0
+    while point_player == target_player
+      accumulator += 1
+      x, y = yield(x, y)
+      if x < 0 || y < 0
+        target_player = nil
+      else
+        target_player = @board.dig(y, x)
+      end
+    end
+    accumulator
+  end
 end
 
-ConnectFour.new.play_game
+# ConnectFour.new.play_game
